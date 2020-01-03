@@ -54,7 +54,7 @@ def makeResp(body):
     resp = Response(body)
     resp.headers["Access-Control-Allow-Origin"] = "*"
     resp.headers["Access-Control-Allow-Methods"] = ["POST", "OPTIONS"]
-    resp.headers["Access-Control-Allow-Headers"] = ["Content-Type"]
+    resp.headers["Access-Control-Allow-Headers"] = ["Content-Type", "content-type"]
     return resp
 
 
