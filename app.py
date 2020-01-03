@@ -1,6 +1,7 @@
 from flask import Flask, request, url_for, Response
 import json
 from solver import solvePuzzle, solverWrapper
+from heuristicSolver import solvePuzzleHeuristic
 from config import Config
 import os
 
@@ -32,22 +33,37 @@ def result():
         if not y:
             return makeResp("No y given")
 
+        solver = data.get("solver", None)
+        if not solver:
+            return makeResp("No Solver given")
+
         animation = data.get("animation", None)
-        if not animation:
-            puzzle = solvePuzzle(w, h, x, y, 0, None, [])
-            if puzzle is not None:
-                return makeResp(str(puzzle.tolist()))
+
+        if solver == "DFS":
+            if not animation:
+                puzzle = solvePuzzle(w, h, x, y, 0, None, [])
+                if puzzle is not None:
+                    return makeResp(str(puzzle.tolist()))
+                else:
+                    return makeResp("No Solution")
             else:
-                return makeResp("No Solution")
-        else:
-            puzzle, temp_puzzles = solverWrapper(w, h, x, y, 0, None)
-            out_puzzles = []
+                puzzle, temp_puzzles = solverWrapper(w, h, x, y, 0, None)
+                out_puzzles = []
+                if puzzle is not None:
+                    for temp_puzzle in temp_puzzles:
+                        out_puzzles.append(temp_puzzle.tolist())
+                    return makeResp(str(out_puzzles))
+                else:
+                    return makeResp("No Solution")
+        if solver == "heuristic":
+            puzzle, temp_puzzles = solvePuzzleHeuristic(w, h, x, y)
             if puzzle is not None:
-                for temp_puzzle in temp_puzzles:
-                    out_puzzles.append(temp_puzzle.tolist())
-                return makeResp(str(out_puzzles))
-            else:
                 return makeResp("No Solution")
+            else:
+                if not animation:
+                    return makeResp(str(puzzle))
+                else:
+                    return temp_puzzles
 
 
 def makeResp(body):
