@@ -59,6 +59,12 @@ def solvePuzzleHeuristic(w, h, x, y):
                 val = temp_grid[row][col]
                 if val == -1:
                     temp_grid[row][col] = "X"
+    grid = grid.tolist()
+    for row in range(h):
+        for col in range(w):
+            val = grid[row][col]
+            if val == -1:
+                grid[row][col] = 0
     return [grid, temp_grids]
 
 
