@@ -58,13 +58,14 @@ def result():
         if solver == "heuristic":
             puzzle, temp_puzzles = solvePuzzleHeuristic(w, h, x, y)
             print(puzzle)
+            print(puzzle)
             if puzzle is not None:
-                return makeResp("No Solution")
-            else:
                 if not animation:
                     return makeResp(str(puzzle))
                 else:
                     return temp_puzzles
+            else:
+                return makeResp("No Solution")
 
 
 def makeResp(body):
