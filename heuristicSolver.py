@@ -2,7 +2,7 @@ import numpy as np
 from solver import findCombinations
 
 
-def solvePuzzleHeuristic(w, h, x, y):
+def solvePuzzleHeuristic(w, h, y, x):
     grid = np.zeros((w, h))
     temp_grids = [np.copy(grid)]
     out_grid = []

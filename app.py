@@ -63,7 +63,7 @@ def result():
                 if not animation:
                     return makeResp(str(puzzle))
                 else:
-                    return temp_puzzles
+                    return makeResp(str(temp_puzzles))
             else:
                 return makeResp("No Solution")
 
