@@ -57,6 +57,7 @@ def result():
                     return makeResp("No Solution")
         if solver == "heuristic":
             puzzle, temp_puzzles = solvePuzzleHeuristic(w, h, x, y)
+            print(puzzle)
             if puzzle is not None:
                 return makeResp("No Solution")
             else:
