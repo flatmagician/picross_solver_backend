@@ -2,7 +2,6 @@ from flask import Flask, request, url_for, Response
 import json
 from solver import solvePuzzle, solverWrapper
 from config import Config
-import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -54,7 +53,7 @@ def makeResp(body):
     resp = Response(body)
     resp.headers["Access-Control-Allow-Origin"] = "*"
     resp.headers["Access-Control-Allow-Methods"] = ["POST", "OPTIONS"]
-    resp.headers["Access-Control-Allow-Headers"] = "*"
+    resp.headers["Access-Control-Allow-Headers"] = ["Content-Type"]
     return resp
 
 
