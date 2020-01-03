@@ -2,6 +2,7 @@ from flask import Flask, request, url_for, Response
 import json
 from solver import solvePuzzle, solverWrapper
 from config import Config
+import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
