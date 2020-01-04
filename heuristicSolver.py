@@ -18,10 +18,8 @@ def solvePuzzleHeuristic(w, h, y, x):
             else:
                 combinations = row_combinations[row]
                 # get current row truth
-            print("row" + str(row))
-            print(combinations)
-            print(type(combinations))
-            if type(combinations) != "string":
+
+            if type(combinations) != "str":
                 current_row = grid[row, :]
                 # exclude configurations that conflict with truth
                 combinations = excludeCombinations(current_row, combinations, h)
@@ -55,10 +53,8 @@ def solvePuzzleHeuristic(w, h, y, x):
                 col_combinations[col] = combinations
             else:
                 combinations = col_combinations[col]
-            print("col" + str(col))
-            print(combinations)
-            print(type(combinations))
-            if type(combinations) != "string":
+            
+            if type(combinations) != "str":
                 current_col = grid[:, col]
                 combinations = excludeCombinations(current_col, combinations, h)
                 if len(combinations):
