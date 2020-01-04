@@ -14,7 +14,7 @@ def solvePuzzleHeuristic(w, h, y, x):
     while not np.array_equal(grid, out_grid):
         out_grid = np.copy(grid)
         for row_col in order:
-            if row_col["axis"] == "row" and row_col["val"] < 9000:
+            if row_col["axis"] == "row" and row_col["val"] < 11000:
                 row = row_col["index"]
                 # get possible row configurations
                 if not row_combinations.get(row):
@@ -61,7 +61,7 @@ def solvePuzzleHeuristic(w, h, y, x):
                             if append:
                                 temp_grids.append(np.copy(grid).tolist())
 
-            if row_col["axis"] == "col"  and row_col["val"] < 9000:
+            if row_col["axis"] == "col"  and row_col["val"] < 11000:
                 col = row_col["index"]
                 if not col_combinations.get(col):
                     combinations = findCombinations(y[col], h)
