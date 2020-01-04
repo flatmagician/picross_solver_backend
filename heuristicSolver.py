@@ -4,7 +4,7 @@ from solver import findCombinations
 
 def solvePuzzleHeuristic(w, h, y, x):
     grid = np.zeros((w, h))
-    temp_grids = [np.copy(grid)]
+    temp_grids = [np.copy(grid).tolist()]
     out_grid = []
     row_combinations = {}
     col_combinations = {}
@@ -79,7 +79,6 @@ def solvePuzzleHeuristic(w, h, y, x):
                         temp_grids.append(np.copy(grid).tolist())
 
     grid = grid.tolist()
-    temp_grids = temp_grids.tolist()
     return [grid, temp_grids]
 
 
