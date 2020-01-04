@@ -57,7 +57,7 @@ def solvePuzzleHeuristic(w, h, y, x):
             if type(combinations) is not str:
                 current_col = grid[:, col]
                 combinations = excludeCombinations(current_col, combinations, h)
-                if len(combinations):
+                if len(combinations) == 1:
                     col_combinations[col] = "complete"
                 else:
                     col_combinations[col] = combinations
