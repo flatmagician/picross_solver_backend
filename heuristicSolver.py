@@ -17,7 +17,7 @@ def solvePuzzleHeuristic(w, h, y, x):
                 row_combinations[row] = combinations
             else:
                 combinations = row_combinations[row]
-            # get current row truth
+                # get current row truth
             current_row = grid[row, :]
             # exclude configurations that conflict with truth
             combinations = excludeCombinations(current_row, combinations, h)
@@ -55,6 +55,7 @@ def solvePuzzleHeuristic(w, h, y, x):
 
             and_combinations = andCombinations(combinations)
             or_combinations = orCombinations(combinations)
+            console.log(and_combinations)
             for row in range(h):
                 append = False
 
