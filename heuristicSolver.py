@@ -93,6 +93,7 @@ def solvePuzzleHeuristic(w, h, y, x):
             val = grid[row][col]
             if val == -1:
                 grid[row][col] = 0
+    print(grid)
     return [grid, temp_grids]
 
 
