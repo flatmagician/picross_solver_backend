@@ -11,15 +11,17 @@ def solvePuzzleHeuristic(w, h, y, x):
     while not np.array_equal(grid, out_grid):
         out_grid = np.copy(grid)
         for row in range(h):
-            if not row_combinations.get(row) {
+            # get possible row configurations
+            if not row_combinations.get(row):
                 combinations = findCombinations(x[row], w)
                 row_combinations[row] = combinations
-            }
-            else {
+            else:
                 combinations = row_combinations[row]
-            }
+            # get current row truth
             current_row = grid[row, :]
+            # exclude configurations that conflict with truth
             combinations = excludeCombinations(current_row, combinations, h)
+            # store valid configurations
             row_combinations[row] = combinations
 
             and_combinations = andCombinations(combinations)
@@ -41,13 +43,12 @@ def solvePuzzleHeuristic(w, h, y, x):
                     temp_grids.append(np.copy(grid))
 
         for col in range(w):
-            if not col_combinations.get(row) {
+            if not col_combinations.get(row):
                 combinations = findCombinations(y[col], h)
                 col_combinations[row] = combinations
-            }
-            else {
+            else:
                 combinations = col_combinations[row]
-            }
+
             current_col = grid[:, col]
             combinations = excludeCombinations(current_col, combinations, h)
             col_combinations[row] = combinations
