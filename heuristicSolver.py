@@ -6,50 +6,67 @@ def solvePuzzleHeuristic(w, h, y, x):
     grid = np.zeros((w, h))
     temp_grids = [np.copy(grid)]
     out_grid = []
+    row_combinations = {}
+    col_combinations = {}
     while not np.array_equal(grid, out_grid):
         out_grid = np.copy(grid)
         for row in range(h):
-            combinations = findCombinations(x[row], w)
+            if not row_combinations.get(row) {
+                combinations = findCombinations(x[row], w)
+                row_combinations[row] = combinations
+            }
+            else {
+                combinations = row_combinations[row]
+            }
             current_row = grid[row, :]
             combinations = excludeCombinations(current_row, combinations, h)
+            row_combinations[row] = combinations
 
             and_combinations = andCombinations(combinations)
+            or_combinations = orCombinations(combinations)
             for col in range(w):
+                append = False
+
                 val = and_combinations[col]
                 if val == True:
                     grid[row, col] = 1
-                    if not np.array_equal(grid, temp_grids[len(temp_grids) - 1]):
-                        temp_grids.append(np.copy(grid))
-            or_combinations = orCombinations(combinations)
-            for col in range(w):
+                    append = True
+
                 val = or_combinations[col]
                 if val == False:
                     grid[row, col] = -1
-                    if not np.array_equal(grid, temp_grids[len(temp_grids) - 1]):
-                        temp_grids.append(np.copy(grid))
+                    append = True
 
-            if not np.array_equal(grid, temp_grids[len(temp_grids) - 1]):
-                temp_grids.append(np.copy(grid))
+                if append:
+                    temp_grids.append(np.copy(grid))
 
         for col in range(w):
-            combinations = findCombinations(y[col], h)
+            if not col_combinations.get(row) {
+                combinations = findCombinations(y[col], h)
+                col_combinations[row] = combinations
+            }
+            else {
+                combinations = col_combinations[row]
+            }
             current_col = grid[:, col]
             combinations = excludeCombinations(current_col, combinations, h)
+            col_combinations[row] = combinations
 
             and_combinations = andCombinations(combinations)
+            or_combinations = orCombinations(combinations)
             for row in range(h):
+                append = False
+
                 val = and_combinations[row]
                 if val == True:
                     grid[row, col] = 1
-                    if not np.array_equal(grid, temp_grids[len(temp_grids) - 1]):
-                        temp_grids.append(np.copy(grid))
-            or_combinations = orCombinations(combinations)
-            for row in range(h):
+
                 val = or_combinations[row]
                 if val == False:
                     grid[row, col] = -1
-                    if not np.array_equal(grid, temp_grids[len(temp_grids) - 1]):
-                        temp_grids.append(np.copy(grid))
+
+                if append:
+                    temp_grids.append(np.copy(grid))
 
     for i in range(len(temp_grids)):
         temp_grids[i] = temp_grids[i].tolist()
