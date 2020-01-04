@@ -53,12 +53,6 @@ def solvePuzzleHeuristic(w, h, y, x):
 
     for i in range(len(temp_grids)):
         temp_grids[i] = temp_grids[i].tolist()
-    for temp_grid in temp_grids:
-        for row in range(h):
-            for col in range(w):
-                val = temp_grid[row][col]
-                if val == -1:
-                    temp_grid[row][col] = "X"
     grid = grid.tolist()
     for row in range(h):
         for col in range(w):
