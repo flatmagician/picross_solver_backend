@@ -42,13 +42,15 @@ def solvePuzzleHeuristic(w, h, y, x):
 
                         val = and_combinations[col]
                         if val == True:
-                            grid[row, col] = 1
-                            append = True
+                            if grid[row, col] != 1:
+                                grid[row, col] = 1
+                                append = True
 
                         val = or_combinations[col]
                         if val == False:
-                            grid[row, col] = -2
-                            append = True
+                            if grid[row, col] != -2:
+                                grid[row, col] = -2
+                                append = True
 
                         if append:
                             temp_grids.append(np.copy(grid).tolist())
@@ -81,11 +83,15 @@ def solvePuzzleHeuristic(w, h, y, x):
 
                         val = and_combinations[row]
                         if val == True:
-                            grid[row, col] = 1
+                            if grid[row, col] != 1:
+                                grid[row, col] = 1
+                                append = True
 
                         val = or_combinations[row]
                         if val == False:
-                            grid[row, col] = -2
+                            if grid[row, col] != -2:
+                                grid[row, col] = -2
+                                append = True
 
                         if append:
                             temp_grids.append(np.copy(grid).tolist())
