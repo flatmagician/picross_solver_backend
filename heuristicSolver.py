@@ -55,7 +55,7 @@ def solvePuzzleHeuristic(w, h, y, x):
 
             and_combinations = andCombinations(combinations)
             or_combinations = orCombinations(combinations)
-            console.log(and_combinations)
+            print(and_combinations)
             for row in range(h):
                 append = False
 
