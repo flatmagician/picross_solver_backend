@@ -18,29 +18,33 @@ def solvePuzzleHeuristic(w, h, y, x):
             else:
                 combinations = row_combinations[row]
                 # get current row truth
-            current_row = grid[row, :]
-            # exclude configurations that conflict with truth
-            combinations = excludeCombinations(current_row, combinations, h)
-            # store valid configurations
-            row_combinations[row] = combinations
+            if type(combinations) != "string":
+                current_row = grid[row, :]
+                # exclude configurations that conflict with truth
+                combinations = excludeCombinations(current_row, combinations, h)
+                # store valid configurations
+                if len(combinations) == 1:
+                    row_combinations[row] = "complete"
+                else:
+                    row_combinations[row] = combinations
 
-            and_combinations = andCombinations(combinations)
-            or_combinations = orCombinations(combinations)
-            for col in range(w):
-                append = False
+                and_combinations = andCombinations(combinations)
+                or_combinations = orCombinations(combinations)
+                for col in range(w):
+                    append = False
 
-                val = and_combinations[col]
-                if val == True:
-                    grid[row, col] = 1
-                    append = True
+                    val = and_combinations[col]
+                    if val == True:
+                        grid[row, col] = 1
+                        append = True
 
-                val = or_combinations[col]
-                if val == False:
-                    grid[row, col] = -1
-                    append = True
+                    val = or_combinations[col]
+                    if val == False:
+                        grid[row, col] = -1
+                        append = True
 
-                if append:
-                    temp_grids.append(np.copy(grid))
+                    if append:
+                        temp_grids.append(np.copy(grid))
 
         for col in range(w):
             if not col_combinations.get(col):
@@ -48,28 +52,30 @@ def solvePuzzleHeuristic(w, h, y, x):
                 col_combinations[col] = combinations
             else:
                 combinations = col_combinations[col]
+            if type(combinations) != "string":
+                current_col = grid[:, col]
+                combinations = excludeCombinations(current_col, combinations, h)
+                if len(combinations):
+                    col_combinations[col] = "complete"
+                else:
+                    col_combinations[col] = combinations
 
-            current_col = grid[:, col]
-            combinations = excludeCombinations(current_col, combinations, h)
-            col_combinations[col] = combinations
-            # print(col)
-            # print(combinations)
-            and_combinations = andCombinations(combinations)
-            or_combinations = orCombinations(combinations)
-            print(and_combinations)
-            for row in range(h):
-                append = False
+                and_combinations = andCombinations(combinations)
+                or_combinations = orCombinations(combinations)
+                print(and_combinations)
+                for row in range(h):
+                    append = False
 
-                val = and_combinations[row]
-                if val == True:
-                    grid[row, col] = 1
+                    val = and_combinations[row]
+                    if val == True:
+                        grid[row, col] = 1
 
-                val = or_combinations[row]
-                if val == False:
-                    grid[row, col] = -1
+                    val = or_combinations[row]
+                    if val == False:
+                        grid[row, col] = -1
 
-                if append:
-                    temp_grids.append(np.copy(grid))
+                    if append:
+                        temp_grids.append(np.copy(grid))
 
     for i in range(len(temp_grids)):
         temp_grids[i] = temp_grids[i].tolist()
