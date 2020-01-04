@@ -14,7 +14,7 @@ def solvePuzzleHeuristic(w, h, y, x):
     while not np.array_equal(grid, out_grid):
         out_grid = np.copy(grid)
         for row_col in order:
-            if row_col["axis"] == "row":
+            if row_col["axis"] == "row" and row_col["val"] < 5000:
                 row = row_col["index"]
                 # get possible row configurations
                 if not row_combinations.get(row):
@@ -61,7 +61,7 @@ def solvePuzzleHeuristic(w, h, y, x):
                             if append:
                                 temp_grids.append(np.copy(grid).tolist())
 
-            if row_col["axis"] == "col":
+            if row_col["axis"] == "col"  and row_col["val"] < 5000:
                 col = row_col["index"]
                 if not col_combinations.get(col):
                     combinations = findCombinations(y[col], h)
@@ -162,9 +162,6 @@ def updateRowColOrder(order, axis, index):
                 val = math.factorial(n_free_spaces + n_blocks)/(math.factorial(n_free_spaces) * math.factorial(n_blocks))
                 element["val"] = val
             break
-    print()
-    for val in order:
-        print(val)
 
 def excludeCombinations(truth, combinations, length):
     out_combinations = []
