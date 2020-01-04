@@ -27,7 +27,10 @@ def solvePuzzleHeuristic(w, h, y, x):
                 if len(combinations) == 1:
                     row_combinations[row] = "complete"
                     for col in range(w):
-                        grid[row, col] = combinations[0][col]
+                        if combinations[0][col] == 1:
+                            grid[row, col] = 1
+                        else:
+                            grid[row, col] = -2
                     temp_grids.append(np.copy(grid).tolist())
                 else:
                     row_combinations[row] = combinations
@@ -63,7 +66,10 @@ def solvePuzzleHeuristic(w, h, y, x):
                 if len(combinations) == 1:
                     col_combinations[col] = "complete"
                     for row in range(h):
-                        grid[row, col] = combinations[0][row]
+                        if combinations[0][row] == 1:
+                            grid[row, col] = 1
+                        else:
+                            grid[row, col] = -2
                     temp_grids.append(np.copy(grid).tolist())
                 else:
                     col_combinations[col] = combinations
@@ -96,7 +102,7 @@ def excludeCombinations(truth, combinations, length):
             if truth[i] == 1 and combination[i] == 0:
                 to_include = False
                 break
-            if truth[i] == -1 and combination[i] == 1:
+            if truth[i] < 0 and combination[i] == 1:
                 to_include = False
                 break
         if to_include:
