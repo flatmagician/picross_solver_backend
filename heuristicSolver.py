@@ -75,8 +75,9 @@ def solvePuzzleHeuristic(w, h, y, x):
                     temp_grids.append(np.copy(grid).tolist())
                 else:
                     col_combinations[col] = combinations
-
+                    print(combinations)
                     and_combinations = andCombinations(combinations)
+                    print(and_combinations)
                     or_combinations = orCombinations(combinations)
                     for row in range(h):
                         append = False
