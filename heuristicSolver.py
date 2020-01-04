@@ -26,26 +26,29 @@ def solvePuzzleHeuristic(w, h, y, x):
                 # store valid configurations
                 if len(combinations) == 1:
                     row_combinations[row] = "complete"
+                    for col in range(w):
+                        grid[row, col] = combinations[0][col]
+                    temp_grids.append(np.copy(grid).tolist())
                 else:
                     row_combinations[row] = combinations
 
-                and_combinations = andCombinations(combinations)
-                or_combinations = orCombinations(combinations)
-                for col in range(w):
-                    append = False
+                    and_combinations = andCombinations(combinations)
+                    or_combinations = orCombinations(combinations)
+                    for col in range(w):
+                        append = False
 
-                    val = and_combinations[col]
-                    if val == True:
-                        grid[row, col] = 1
-                        append = True
+                        val = and_combinations[col]
+                        if val == True:
+                            grid[row, col] = 1
+                            append = True
 
-                    val = or_combinations[col]
-                    if val == False:
-                        grid[row, col] = -2
-                        append = True
+                        val = or_combinations[col]
+                        if val == False:
+                            grid[row, col] = -2
+                            append = True
 
-                    if append:
-                        temp_grids.append(np.copy(grid).tolist())
+                        if append:
+                            temp_grids.append(np.copy(grid).tolist())
 
         for col in range(w):
             if not col_combinations.get(col):
@@ -59,24 +62,27 @@ def solvePuzzleHeuristic(w, h, y, x):
                 combinations = excludeCombinations(current_col, combinations, h)
                 if len(combinations) == 1:
                     col_combinations[col] = "complete"
+                    for row in range(h):
+                        grid[row, col] = combinations[0][row]
+                    temp_grids.append(np.copy(grid).tolist())
                 else:
                     col_combinations[col] = combinations
 
-                and_combinations = andCombinations(combinations)
-                or_combinations = orCombinations(combinations)
-                for row in range(h):
-                    append = False
+                    and_combinations = andCombinations(combinations)
+                    or_combinations = orCombinations(combinations)
+                    for row in range(h):
+                        append = False
 
-                    val = and_combinations[row]
-                    if val == True:
-                        grid[row, col] = 1
+                        val = and_combinations[row]
+                        if val == True:
+                            grid[row, col] = 1
 
-                    val = or_combinations[row]
-                    if val == False:
-                        grid[row, col] = -2
+                        val = or_combinations[row]
+                        if val == False:
+                            grid[row, col] = -2
 
-                    if append:
-                        temp_grids.append(np.copy(grid).tolist())
+                        if append:
+                            temp_grids.append(np.copy(grid).tolist())
 
     grid = grid.tolist()
     return [grid, temp_grids]
