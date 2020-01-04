@@ -43,17 +43,17 @@ def solvePuzzleHeuristic(w, h, y, x):
                     temp_grids.append(np.copy(grid))
 
         for col in range(w):
-            if not col_combinations.get(row):
+            if not col_combinations.get(col):
                 combinations = findCombinations(y[col], h)
-                col_combinations[row] = combinations
+                col_combinations[col] = combinations
             else:
-                combinations = col_combinations[row]
+                combinations = col_combinations[col]
 
             current_col = grid[:, col]
             combinations = excludeCombinations(current_col, combinations, h)
-            col_combinations[row] = combinations
-            print(col)
-            print(combinations)
+            col_combinations[col] = combinations
+            # print(col)
+            # print(combinations)
             and_combinations = andCombinations(combinations)
             or_combinations = orCombinations(combinations)
             print(and_combinations)
