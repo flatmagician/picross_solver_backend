@@ -19,7 +19,7 @@ def solvePuzzleHeuristic(w, h, y, x):
                 combinations = row_combinations[row]
                 # get current row truth
 
-            if type(combinations) != "str":
+            if type(combinations) is str:
                 current_row = grid[row, :]
                 # exclude configurations that conflict with truth
                 combinations = excludeCombinations(current_row, combinations, h)
@@ -54,7 +54,7 @@ def solvePuzzleHeuristic(w, h, y, x):
             else:
                 combinations = col_combinations[col]
             
-            if type(combinations) != "str":
+            if type(combinations) is str:
                 current_col = grid[:, col]
                 combinations = excludeCombinations(current_col, combinations, h)
                 if len(combinations):
