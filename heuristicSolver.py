@@ -52,7 +52,8 @@ def solvePuzzleHeuristic(w, h, y, x):
             current_col = grid[:, col]
             combinations = excludeCombinations(current_col, combinations, h)
             col_combinations[row] = combinations
-
+            print(col)
+            print(combinations)
             and_combinations = andCombinations(combinations)
             or_combinations = orCombinations(combinations)
             print(and_combinations)
