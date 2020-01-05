@@ -164,19 +164,20 @@ def updateRowColOrder(order, axis, index):
             break
 
 def excludeCombinations(truth, combinations, length):
-    out_combinations = []
-    for combination in combinations:
-        to_include = True
-        for i in range(length):
-            if truth[i] == 1 and combination[i] == 0:
-                to_include = False
-                break
-            if truth[i] < 0 and combination[i] == 1:
-                to_include = False
-                break
-        if to_include:
-            out_combinations.append(combination)
-    return out_combinations
+    indices = np.array([i for i in range(length) if truth[i] != 0])
+    if len(indices) == 0:
+        return combinations
+    else:
+        truth_test = np.array([truth[i] for i in indices])
+        fun = lambda combination: excludeCombination(truth_test, combination, indices)
+        out = [combination for combination in combinations if fun(combination)]
+        return out
+
+def excludeCombination(truth_test, combination, indices):
+    combination_test = np.array([combination[i] for i in indices])
+    truth_test = np.array(truth_test)
+    combination_test = np.array(combination_test)
+    return np.all([not i for i in np.logical_xor(truth_test > 0, combination_test > 0)])
 
 
 def andCombinations(combinations):
