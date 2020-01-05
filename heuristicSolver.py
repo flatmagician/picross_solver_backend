@@ -17,7 +17,7 @@ def solvePuzzleHeuristic(w, h, y, x):
             if row_col["axis"] == "row" and row_col["val"] < 16000:
                 row = row_col["index"]
                 # get possible row configurations
-                if not row_combinations.get(row):
+                if row_combinations.get(row) is None:
                     combinations = findCombinations(x[row], w)
                     row_combinations[row] = combinations
                 else:
@@ -63,7 +63,7 @@ def solvePuzzleHeuristic(w, h, y, x):
 
             if row_col["axis"] == "col"  and row_col["val"] < 16000:
                 col = row_col["index"]
-                if not col_combinations.get(col):
+                if col_combinations.get(col) is None:
                     combinations = findCombinations(y[col], h)
                     col_combinations[col] = combinations
                 else:
