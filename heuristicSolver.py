@@ -1,5 +1,4 @@
 import numpy as np
-from solver import findCombinations
 import math
 
 def solvePuzzleHeuristic(w, h, y, x):
@@ -18,7 +17,7 @@ def solvePuzzleHeuristic(w, h, y, x):
                 row = row_col["index"]
                 # get possible row configurations
                 if row_combinations.get(row) is None:
-                    combinations = findCombinations(x[row], w)
+                    combinations = findCombinationsHeuristic(x[row], w)
                     row_combinations[row] = combinations
                 else:
                     combinations = row_combinations[row]
@@ -64,7 +63,7 @@ def solvePuzzleHeuristic(w, h, y, x):
             if row_col["axis"] == "col"  and row_col["val"] < 16000:
                 col = row_col["index"]
                 if col_combinations.get(col) is None:
-                    combinations = findCombinations(y[col], h)
+                    combinations = findCombinationsHeuristic(y[col], h)
                     col_combinations[col] = combinations
                 else:
                     combinations = col_combinations[col]
@@ -187,3 +186,34 @@ def andCombinations(combinations):
 
 def orCombinations(combinations):
     return np.logical_or.reduce(combinations)
+
+def findCombinationsHeuristic(blocks, length):
+    n_blocks = np.shape(blocks)[0]
+    sum_blocks = np.sum(blocks)
+    n_spaces = length - sum_blocks
+    n_space_areas = n_blocks + 1
+    n_free_spaces = n_spaces - n_space_areas + 2
+
+    space_positions = np.full(n_free_spaces, "s")
+    block_positions = np.full(n_blocks, "b")
+    space_array = np.concatenate([space_positions, block_positions])
+    combinations = multiset_permutations(space_array)
+    result = [constructRow(combination, blocks, n_blocks, length) for combination in combinations]
+    return result
+        
+def constructRow(combination, blocks, n_blocks, length):
+    row = np.zeros(length)
+    block_count = 0
+    index = 0
+    for char in combination:
+        if char == "s":
+            index += 1
+        if char == "b":
+            block_length = blocks[block_count]
+            for i in range(block_length):
+                row[index] = 1
+                index += 1
+            block_count += 1
+            if block_count != n_blocks:
+                index += 1
+    return row
