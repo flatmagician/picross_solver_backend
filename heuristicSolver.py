@@ -1,5 +1,6 @@
 import numpy as np
 import math
+from sympy.utilities.iterables import multiset_permutations
 
 def solvePuzzleHeuristic(w, h, y, x):
     grid = np.zeros((w, h))
