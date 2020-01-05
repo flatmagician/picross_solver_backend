@@ -174,11 +174,16 @@ def excludeCombinations(truth, combinations, length):
         return out
 
 def excludeCombination(truth_test, combination, indices):
-    combination_test = np.array([combination[i] for i in indices])
+    combination_test = np.zeros(indices.size)
+    for i in range(indices.size):
+        combination_test[i] = combination[indices[i]]
     truth_test = np.array(truth_test)
     combination_test = np.array(combination_test)
-    return np.all([not i for i in np.logical_xor(truth_test > 0, combination_test > 0)])
-
+    return np.all(
+        np.logical_not(
+            np.logical_xor(truth_test > 0, combination_test > 0)
+        )
+    )
 
 def andCombinations(combinations):
     return np.logical_and.reduce(combinations)
