@@ -181,18 +181,7 @@ def excludeCombination(truth_test, combination, indices):
 
 
 def andCombinations(combinations):
-    if len(np.shape(combinations)) == 1:
-        return combinations
-    combination = combinations[0]
-    for new_combination in combinations[1:]:
-        combination = np.logical_and(combination, new_combination)
-    return combination
-
+    return np.logical_and.reduce(combinations)
 
 def orCombinations(combinations):
-    if len(np.shape(combinations)) == 1:
-        return combinations
-    combination = combinations[0]
-    for new_combination in combinations[1:]:
-        combination = np.logical_or(combination, new_combination)
-    return combination
+    return np.logical_or.reduce(combinations)
