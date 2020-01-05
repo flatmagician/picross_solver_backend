@@ -169,19 +169,16 @@ def excludeCombinations(truth, combinations, length):
     if indices.size == 0:
         return combinations
     else:
-        truth_test = truth[indices]
-        fun = lambda combination: excludeCombination(truth_test, combination, indices)
-        bool_arr = [fun(com) for com in combinations]
-        out = np.compress(bool_arr, combinations, axis=0)
-        return out
+        truth_test = truth[indices] > 0
+        bool_arr = [excludeCombination(truth_test, com, indices) for com in combinations]
+        return np.compress(bool_arr, combinations, axis=0)
+
 
 def excludeCombination(truth_test, combination, indices):
     combination_test = combination[indices]
-    truth_test = np.array(truth_test)
-    combination_test = np.array(combination_test)
     return np.all(
         np.logical_not(
-            np.logical_xor(truth_test > 0, combination_test)
+            np.logical_xor(truth_test, combination_test)
         )
     )
 
