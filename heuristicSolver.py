@@ -2,7 +2,7 @@ import numpy as np
 import math
 from sympy.utilities.iterables import multiset_permutations
 
-def solvePuzzleHeuristic(h, w, y, x):
+def solvePuzzleHeuristic(w, h, y, x):
     grid = np.zeros((w, h))
     temp_grids = [np.copy(grid).tolist()]
     out_grid = []
