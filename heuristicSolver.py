@@ -119,8 +119,10 @@ def initRowColOrder(w, h, x, y):
         n_spaces = h - sum_blocks
         n_space_areas = n_blocks + 1
         n_free_spaces = n_spaces - n_space_areas + 2
-
-        val = math.factorial(n_free_spaces + n_blocks)/(math.factorial(n_free_spaces) * math.factorial(n_blocks))
+        if n_free_spaces == 1: 
+            val = 1
+        else:
+            val = math.factorial(n_free_spaces + n_blocks)/(math.factorial(n_free_spaces) * math.factorial(n_blocks))
         order.append({
             "axis": "row",
             "index": row,
@@ -136,7 +138,10 @@ def initRowColOrder(w, h, x, y):
         n_space_areas = n_blocks + 1
         n_free_spaces = n_spaces - n_space_areas + 2
 
-        val = math.factorial(n_free_spaces + n_blocks)/(math.factorial(n_free_spaces) * math.factorial(n_blocks))
+        if n_free_spaces == 1: 
+            val = 1
+        else:
+            val = math.factorial(n_free_spaces + n_blocks)/(math.factorial(n_free_spaces) * math.factorial(n_blocks))
         order.append({
             "axis": "col",
             "index": col,
