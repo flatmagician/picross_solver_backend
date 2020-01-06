@@ -3,7 +3,7 @@ import math
 from sympy.utilities.iterables import multiset_permutations
 
 def solvePuzzleHeuristic(w, h, y, x):
-    grid = np.zeros((w, h))
+    grid = np.zeros((h, w))
     temp_grids = [np.copy(grid).tolist()]
     out_grid = []
     row_combinations = {}
@@ -27,7 +27,7 @@ def solvePuzzleHeuristic(w, h, y, x):
                 if type(combinations) is not str:
                     current_row = grid[row, :]
                     # exclude configurations that conflict with truth
-                    combinations = excludeCombinations(current_row, combinations, h)
+                    combinations = excludeCombinations(current_row, combinations, w)
                     # store valid configurations
                     if len(combinations) == 1:
                         row_combinations[row] = "complete"
