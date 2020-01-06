@@ -10,7 +10,7 @@ def solvePuzzleHeuristic(w, h, y, x):
     col_combinations = {}
     
     order = initRowColOrder(w,h,x,y)  
-    
+    print(w, h, x, y)
     while not np.array_equal(grid, out_grid):
         out_grid = np.copy(grid)
         for row_col in order:
